@@ -1,0 +1,25 @@
+[images]
+  remote_images = ["https://same-assets.com/*"]
+
+[build]
+  command = "bun run build"
+  publish = ".next"
+
+[build.environment]
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+[dev]
+  command = "bun run dev"
+  port = 3000
+  targetPort = 3000
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  included_files = ["!node_modules/.pnpm/**"]
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
