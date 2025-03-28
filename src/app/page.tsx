@@ -22,8 +22,8 @@ export default function Home() {
               </div>
 
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                AI <span className="text-red-500">UPLOAD</span> YOUR MATCH<br />
-                & TRACKING
+                Transforming <span className="text-red-500">Footage</span> into Future<br />
+                
               </h1>
 
               <p className="text-white/80 text-lg mb-6">
@@ -37,10 +37,10 @@ export default function Home() {
             </div>
 
             <div className="w-full md:w-2/5">
-              <div className="aspect-[3/4] relative bg-zinc-900 rounded-lg overflow-hidden">
+              <div className="aspect-[3/4] relative bg-zinc-900 rounded-xl overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Image
-                    src="/player-silhouette.png"
+                    src="/image.jpeg"
                     alt="Soccer Player"
                     className="object-cover"
                     fill

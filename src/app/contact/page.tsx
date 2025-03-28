@@ -205,71 +205,11 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="bg-zinc-950 rounded-xl p-6 border border-zinc-800">
-              <h2 className="text-xl font-bold text-white mb-4">Business Hours</h2>
-
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">Monday - Friday</span>
-                  <span className="text-white">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">Saturday</span>
-                  <span className="text-white">10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-zinc-400">Sunday</span>
-                  <span className="text-white">Closed</span>
-                </div>
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-zinc-800">
-                <p className="text-zinc-400 text-sm">
-                  Technical support is available 24/7 for emergency issues.
-                </p>
-              </div>
-            </div>
+           
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                question: "How long does video processing take?",
-                answer: "Video processing typically takes 5-15 minutes depending on the length and quality of the video."
-              },
-              {
-                question: "What video formats are supported?",
-                answer: "We support all major video formats including MP4, MOV, and AVI. For best results, we recommend MP4 with H.264 encoding."
-              },
-              {
-                question: "Is my data secure?",
-                answer: "Yes, we take data security seriously. All uploads are encrypted and we never share your data with third parties."
-              },
-              {
-                question: "Can I track multiple teams?",
-                answer: "Absolutely! Our platform allows you to track and analyze multiple teams and players within your account."
-              },
-              {
-                question: "Do you offer team discounts?",
-                answer: "Yes, we offer special pricing for teams and organizations. Contact our sales team for more information."
-              },
-              {
-                question: "Can I export the analysis data?",
-                answer: "Yes, all analysis data can be exported in various formats including PDF, CSV, and Excel."
-              }
-            ].map((faq, index) => (
-              <div key={index} className="bg-zinc-950 rounded-xl p-6 border border-zinc-800">
-                <h3 className="text-lg font-bold text-white mb-2">{faq.question}</h3>
-                <p className="text-zinc-400">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </AppLayout>
   );
