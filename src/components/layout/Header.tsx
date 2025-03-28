@@ -27,22 +27,25 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="text-white font-medium hover:text-red-500 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-red-600 after:transform after:scale-x-100"
+            className="text-white font-medium group relative transition-colors duration-300 py-1"
           >
             HOME
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </Link>
           <Link
             href="/features"
-            className="text-white font-medium hover:text-red-500 transition-colors"
+            className="text-white font-medium group relative transition-colors duration-300 py-1"
           >
             FEATURES
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </Link>
           
           <Link
             href="/contact"
-            className="text-white font-medium hover:text-red-500 transition-colors"
+            className="text-white font-medium group relative transition-colors duration-300 py-1"
           >
             CONTACT
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </Link>
         </nav>
 
@@ -50,7 +53,7 @@ export default function Header() {
           <Button 
             variant="ghost" 
             size="sm" 
-            className="hidden md:flex px-4 rounded-full bg-red-600 hover:bg-red-700 text-white"
+            className="hidden md:flex px-4 rounded-full bg-red-600 hover:bg-red-700 text-white transition-colors duration-300"
             onClick={onClickLogin}
           >
             LOGIN
@@ -67,32 +70,36 @@ export default function Header() {
           <div className="container mx-auto px-4 flex flex-col gap-4">
             <Link
               href="/"
-              className="text-white font-medium hover:text-red-500 transition-colors py-2"
+              className="text-white font-medium group relative transition-colors duration-300 py-2"
             >
               HOME
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/features"
-              className="text-white font-medium hover:text-red-500 transition-colors py-2"
+              className="text-white font-medium group relative transition-colors duration-300 py-2"
             >
               FEATURES
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/feature"
-              className="text-white font-medium hover:text-red-500 transition-colors py-2"
+              className="text-white font-medium group relative transition-colors duration-300 py-2"
             >
               FEATURE
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Link
               href="/contact"
-              className="text-white font-medium hover:text-red-500 transition-colors py-2"
+              className="text-white font-medium group relative transition-colors duration-300 py-2"
             >
               CONTACT
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Link>
             <Button 
               variant="ghost" 
               size="sm" 
-              className="w-full justify-center px-4 rounded-full bg-red-600 hover:bg-red-700 text-white"
+              className="w-full justify-center px-4 rounded-full bg-red-600 hover:bg-red-700 text-white transition-colors duration-300"
               onClick={onClickLogin}
             >
               LOGIN

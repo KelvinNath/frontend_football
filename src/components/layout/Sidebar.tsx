@@ -44,7 +44,7 @@ export default function Sidebar() {
   const navItems = [
     { href: "/", icon: <Home size={20} />, label: "Home" },
     { href: "/upload", icon: <Upload size={20} />, label: "Upload" },
-    { href: "/analytics", icon: <BarChart2 size={20} />, label: "Analytics" },
+    { href: "/analytics", icon: <BarChart2 size={20} />, label: "Scout Dashboard" },
     { href: "/team", icon: <Users size={20} />, label: "Team" },
   ];
 

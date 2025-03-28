@@ -102,59 +102,6 @@ export default function Login() {
           </div>
         )}
 
-        {/* Footer Navigation */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <Link
-            href="/"
-            className="bg-zinc-950 p-5 rounded-xl hover:bg-zinc-900 transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-red-500 transition-colors">HOME</h3>
-                <p className="text-sm text-zinc-400">Return to homepage</p>
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            href="/features"
-            className="bg-zinc-950 p-5 rounded-xl hover:bg-zinc-900 transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-red-500 transition-colors">FEATURES</h3>
-                <p className="text-sm text-zinc-400">Explore platform capabilities</p>
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            href="/contact"
-            className="bg-zinc-950 p-5 rounded-xl hover:bg-zinc-900 transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-red-500 transition-colors">CONTACT</h3>
-                <p className="text-sm text-zinc-400">Get support</p>
-              </div>
-            </div>
-          </Link>
-        </div>
       </div>
     </AppLayout>
   );

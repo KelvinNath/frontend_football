@@ -48,7 +48,7 @@ export default function FeaturesPage() {
         {/* Hero Section */}
         <div className="text-center mb-16 mt-6">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            AI-Powered <span className="text-red-500">Player Analysis</span>
+            Welcome to <span className="text-red-500">Next</span>Kick
           </h1>
           <p className="text-xl text-zinc-400 max-w-3xl mx-auto mb-8">
             Advanced analytics and performance tracking to improve player and team performance
