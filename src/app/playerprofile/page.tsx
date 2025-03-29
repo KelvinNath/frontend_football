@@ -98,6 +98,10 @@ export default function PlayerProfile() {
       router.push('/');
     } catch (error) {
       console.error('Profile creation failed:', error);
+      toast.error(
+        (error as AxiosError<{message: string}>).response?.data?.message || 
+        "Failed to create profile. Please try again."
+      );
       if (error instanceof AxiosError) {
         const errorMessage = (error.response?.data as ErrorResponse)?.message || 
           "Failed to create profile. Please try again.";

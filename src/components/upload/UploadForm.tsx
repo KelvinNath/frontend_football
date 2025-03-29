@@ -12,42 +12,9 @@ export default function UploadForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [playerProfileId, setPlayerProfileId] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [jerseyNumber, setJerseyNumber] = useState("7"); // Default jersey number
-
-  // Get player profile ID on component mount
-  useEffect(() => {
-    const fetchPlayerProfile = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
-          return;
-        }
-
-        const response = await axios.get('http://localhost:3000/api/player/profile', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.data?.profile?.id) {
-          setPlayerProfileId(response.data.profile.id);
-        } else {
-          // Set a default profile ID as fallback (remove in production)
-          setPlayerProfileId("b1262d54-1a5f-429f-aeea-3646f317a05f");
-        }
-      } catch (error) {
-        console.error('Error fetching player profile:', error);
-        
-        // Set a default profile ID as fallback (remove in production)
-        setPlayerProfileId("b1262d54-1a5f-429f-aeea-3646f317a05f");
-      }
-    };
-
-    fetchPlayerProfile();
-  }, []);
 
   // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,11 +75,6 @@ export default function UploadForm() {
       return;
     }
     
-    if (!playerProfileId) {
-      toast.error("Player profile not found. Please try again or contact support.");
-      return;
-    }
-
     try {
       setIsUploading(true);
       
@@ -128,8 +90,8 @@ export default function UploadForm() {
       const response = await axios.post(
         'http://localhost:3000/api/videos/upload',
         {
-          videoUrl,
-          playerProfileId
+          videoUrl
+          // playerProfileId removed
         },
         {
           headers: {
@@ -165,8 +127,8 @@ export default function UploadForm() {
   // Process video for analysis and redirect to player analysis page
   const handleProcessAnalysis = async () => {
     try {
-      if (!file || !playerProfileId) {
-        toast.error("Missing file or player information");
+      if (!file) {
+        toast.error("Missing file information");
         return;
       }
 
@@ -174,7 +136,7 @@ export default function UploadForm() {
       
       // Create form data for API call
       const formData = new FormData();
-      formData.append('playerProfileId', playerProfileId);
+      // Removed playerProfileId
       formData.append('jerseyNumber', jerseyNumber);
       formData.append('video', file, file.name);
       
@@ -296,14 +258,6 @@ export default function UploadForm() {
                 />
               </div>
             )}
-
-            {/* Display the player profile ID status */}
-            <div className="mb-4 text-sm">
-              <span className="text-zinc-400">Player Profile Status: </span>
-              <span className={playerProfileId ? "text-green-500" : "text-red-500"}>
-                {playerProfileId ? "Ready" : "Not Found"}
-              </span>
-            </div>
             
             {/* Jersey number input field */}
             <div className="mb-4">
