@@ -185,7 +185,7 @@ export default function Home() {
                 <p className="text-sm text-zinc-400">Upload match videos</p>
               </div>
             </div>
-          </Link>
+         </Link>
 
           <Link
             href="/features"

@@ -5,14 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     userRole: null as 'scout' | 'player' | null
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,10 +27,47 @@ export default function Signup() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement signup logic
-    console.log('Signup Data:', formData);
+    
+    // Validate form data
+    if (!formData.name || !formData.email || !formData.password || !formData.userRole) {
+      toast.error("Please fill in all fields and select a role");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/signup', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.userRole.toUpperCase()
+      });
+
+      // Store user info in localStorage
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      // Show success toast
+      toast.success("Account created successfully");
+
+      // Redirect based on role
+      if (formData.userRole === 'scout') {
+        router.push('/login');
+      } else if (formData.userRole === 'player') {
+        router.push('/login');
+      }
+    } catch (error) {
+      // Handle signup error
+      console.error('Signup failed:', error);
+      toast.error(
+        (error as AxiosError<{message: string}>).response?.data?.message || 
+        "Signup failed. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -152,10 +194,10 @@ export default function Signup() {
             <Button 
               type="submit" 
               size="lg" 
-              disabled={!formData.name || !formData.email || !formData.password || !formData.userRole}
+              disabled={!formData.name || !formData.email || !formData.password || !formData.userRole || isLoading}
               className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full mt-6"
             >
-              Create Account
+              {isLoading ? 'Creating Account...' : 'Create Account'}
             </Button>
           </div>
         </form>

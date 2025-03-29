@@ -2,10 +2,136 @@
 import AppLayout from "@/components/layout/AppLayout";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 export default function Login() {
   const [selectedRole, setSelectedRole] = useState<'scout' | 'player' | null>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  // Check for existing authentication on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    const user = localStorage.getItem('user');
+    
+    if (token && user) {
+      try {
+        const userData = JSON.parse(user);
+        
+        // For players, check if profile is complete
+        if (userData.role.toLowerCase() === 'player') {
+          checkPlayerProfile(token);
+        } else if (userData.role.toLowerCase() === 'scout') {
+          router.push('/');
+        }
+      } catch (error) {
+        // Clear invalid localStorage data
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+      }
+    }
+  }, [router]);
+
+  // Check player profile completion
+  const checkPlayerProfile = async (token: string) => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/player/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      // If we received a response, the player data exists in the database
+      // Redirect to home page regardless of profile completeness
+      router.push('/');
+    } catch (error) {
+      // Only if the API request completely fails, direct to profile page
+      console.error('Profile check failed:', error);
+      router.push('/playerprofile');
+    }
+  };
+
+  const handleLogin = async () => {
+    // Validate inputs
+    if (!selectedRole || !email || !password) {
+      toast.error("Please fill in all fields and select a role");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/login', {
+        email,
+        password,
+        role: selectedRole.toUpperCase()
+      }, {
+        // Add timeout to prevent hanging requests
+        timeout: 10000
+      });
+
+      // Secure token storage
+      const { firebaseToken, token, user } = response.data;
+
+      // Store tokens with some basic security considerations
+      localStorage.setItem('firebaseToken', firebaseToken);
+      localStorage.setItem('accessToken', token);
+      
+      // Store user info with minimal exposed data
+      localStorage.setItem('user', JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }));
+
+      // Show success toast
+      toast.success("Login Successful");
+
+      // Redirect based on role
+      if (selectedRole === 'scout') {
+        router.push('/');
+      } else if (selectedRole === 'player') {
+        // Check player profile
+        checkPlayerProfile(token);
+      }
+    } catch (error) {
+      // Comprehensive error handling
+      console.error('Login failed:', error);
+      
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          toast.error(
+            error.response.data.message || 
+            "Login failed. Please check your credentials."
+          );
+        } else if (error.request) {
+          // The request was made but no response was received
+          toast.error("No response from server. Please check your internet connection.");
+        } else {
+          // Something happened in setting up the request
+          toast.error("An unexpected error occurred. Please try again.");
+        }
+      } else {
+        toast.error("Login failed. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <AppLayout>
@@ -86,22 +212,38 @@ export default function Login() {
           </div>
         </div>
 
-        {/* Continue Button */}
+        {/* Login Form */}
         {selectedRole && (
-          <div className="mt-8 text-center">
-            <Button 
-              size="lg" 
-              className="bg-red-600 hover:bg-red-700 text-white rounded-full px-12"
-              onClick={() => {
-                // TODO: Implement navigation based on selected role
-                console.log(`Navigating to ${selectedRole} authentication`);
-              }}
-            >
-              Continue as {selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}
-            </Button>
+          <div className="mt-8 max-w-md mx-auto">
+            <div className="space-y-4">
+              <input 
+                type="email" 
+                placeholder="Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-3 bg-zinc-950 text-white border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+              />
+              <input 
+                type="password" 
+                placeholder="Password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-3 bg-zinc-950 text-white border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+              />
+            </div>
+
+            <div className="mt-8 text-center">
+              <Button 
+                size="lg" 
+                className="bg-red-600 hover:bg-red-700 text-white rounded-full px-12 w-full"
+                onClick={handleLogin}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Logging in...' : `Continue as ${selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}`}
+              </Button>
+            </div>
           </div>
         )}
-
       </div>
     </AppLayout>
   );
