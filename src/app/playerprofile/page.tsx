@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
@@ -97,7 +97,7 @@ export default function PlayerProfile() {
     } catch (error) {
       console.error('Profile creation failed:', error);
       toast.error(
-        error.response?.data?.message || 
+        (error as AxiosError<{message: string}>).response?.data?.message || 
         "Failed to create profile. Please try again."
       );
     } finally {

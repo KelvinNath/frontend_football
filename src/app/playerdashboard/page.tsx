@@ -122,7 +122,7 @@ export default function PlayerPerformanceDashboard() {
               outerRadius={150} 
               width={600} 
               height={400} 
-              data={monthlyProgressData[monthlyProgressData.length - 1]}
+              data={[monthlyProgressData[monthlyProgressData.length - 1]]}
             >
               <PolarGrid stroke="#374151" />
               <PolarAngleAxis dataKey="month" stroke="#9CA3AF" />

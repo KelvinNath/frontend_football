@@ -31,7 +31,7 @@ interface PlayerMetrics {
   createdAt: string;
 }
 
-export default function PlayerAnalysisPage() {
+export default function playeranalysis() {
   const [metrics, setMetrics] = useState<PlayerMetrics | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +67,7 @@ export default function PlayerAnalysisPage() {
   const radarData = [
     {
       name: 'Performance Metrics',
-      speed: metrics.speed,
+      speed: metrics.speed - 40,
       dribbling: metrics.dribbling * 10, // Scale to match other metrics
       passing: metrics.passing * 10,
       shooting: metrics.shooting * 10,
@@ -79,7 +79,7 @@ export default function PlayerAnalysisPage() {
 
   // Prepare data for bar chart
   const barData = [
-    { name: 'Speed', value: metrics.speed },
+    { name: 'Speed', value: metrics.speed - 40},
     { name: 'Dribbling', value: metrics.dribbling * 10 },
     { name: 'Passing', value: metrics.passing * 10 },
     { name: 'Shooting', value: metrics.shooting * 10 },
