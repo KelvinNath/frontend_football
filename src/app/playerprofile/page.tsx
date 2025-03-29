@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+
+// Add an interface for the error response data
+interface ErrorResponse {
+  message: string;
+}
 
 export default function PlayerProfile() {
   const router = useRouter();
@@ -91,12 +96,15 @@ export default function PlayerProfile() {
 
       toast.success("Profile created successfully");
       router.push('/');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Profile creation failed:', error);
-      toast.error(
-        error?.response?.data?.message || 
-        "Failed to create profile. Please try again."
-      );
+      if (error instanceof AxiosError) {
+        const errorMessage = (error.response?.data as ErrorResponse)?.message || 
+          "Failed to create profile. Please try again.";
+        toast.error(errorMessage);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setIsLoading(false);
     }
