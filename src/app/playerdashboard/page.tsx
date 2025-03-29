@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 import { 
@@ -23,6 +25,26 @@ const monthlyProgressData = [
   { month: 'Feb', speed: 80, shooting: 75, passing: 78, dribbling: 73 },
   { month: 'Mar', speed: 85, shooting: 78, passing: 82, dribbling: 79 },
   { month: 'Apr', speed: 87, shooting: 80, passing: 84, dribbling: 81 }
+];
+
+// Create a new array specifically for radar data
+const radarData = [
+  {
+    subject: 'Speed',
+    value: monthlyProgressData[monthlyProgressData.length - 1].speed,
+  },
+  {
+    subject: 'Shooting',
+    value: monthlyProgressData[monthlyProgressData.length - 1].shooting,
+  },
+  {
+    subject: 'Passing',
+    value: monthlyProgressData[monthlyProgressData.length - 1].passing,
+  },
+  {
+    subject: 'Dribbling',
+    value: monthlyProgressData[monthlyProgressData.length - 1].dribbling,
+  },
 ];
 
 export default function PlayerPerformanceDashboard() {
@@ -123,32 +145,16 @@ export default function PlayerPerformanceDashboard() {
               width={600} 
               height={400} 
               data={[monthlyProgressData[monthlyProgressData.length - 1]]}
+              data={radarData}
             >
               <PolarGrid stroke="#374151" />
-              <PolarAngleAxis dataKey="month" stroke="#9CA3AF" />
+              <PolarAngleAxis dataKey="subject" stroke="#9CA3AF" />
               <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#9CA3AF" />
               <Radar 
-                dataKey="speed" 
+                name="Skills"
+                dataKey="value" 
                 stroke="#EF4444" 
                 fill="#EF4444" 
-                fillOpacity={0.6} 
-              />
-              <Radar 
-                dataKey="shooting" 
-                stroke="#10B981" 
-                fill="#10B981" 
-                fillOpacity={0.6} 
-              />
-              <Radar 
-                dataKey="passing" 
-                stroke="#3B82F6" 
-                fill="#3B82F6" 
-                fillOpacity={0.6} 
-              />
-              <Radar 
-                dataKey="dribbling" 
-                stroke="#8B5CF6" 
-                fill="#8B5CF6" 
                 fillOpacity={0.6} 
               />
               <Tooltip />
