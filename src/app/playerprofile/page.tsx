@@ -89,15 +89,12 @@ export default function PlayerProfile() {
         }
       );
 
-      // Profile created successfully
       toast.success("Profile created successfully");
-      
-      // Redirect to home page
       router.push('/');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Profile creation failed:', error);
       toast.error(
-        error.response?.data?.message || 
+        error?.response?.data?.message || 
         "Failed to create profile. Please try again."
       );
     } finally {
