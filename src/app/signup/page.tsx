@@ -37,9 +37,12 @@ export default function Signup() {
     }
 
     setIsLoading(true);
-
+    
+    // Add this check to provide a fallback URL if env variable is undefined
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+    
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', {
+      const response = await axios.post(`${backendUrl}/api/auth/signup`, {
         name: formData.name,
         email: formData.email,
         password: formData.password,

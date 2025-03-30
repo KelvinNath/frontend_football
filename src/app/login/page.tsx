@@ -39,8 +39,10 @@ export default function Login() {
 
   // Check player profile completion
   const checkPlayerProfile = async (token: string) => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+
     try {
-      const response = await axios.get('http://localhost:3000/api/player/profile', {
+      const response = await axios.get(`${backendUrl}/api/player/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -57,6 +59,8 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+
     // Validate inputs
     if (!selectedRole || !email || !password) {
       toast.error("Please fill in all fields and select a role");
@@ -73,7 +77,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', {
+      const response = await axios.post(`${backendUrl}/api/auth/login`, {
         email,
         password,
         role: selectedRole.toUpperCase()

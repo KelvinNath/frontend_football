@@ -33,6 +33,12 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: true,
+  },
+  env: {
+    PORT: 3001
+  }
 };
 
 module.exports = nextConfig;

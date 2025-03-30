@@ -67,7 +67,10 @@ export default function UploadForm() {
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
+
+    const backendUrl=process.env.NEXT_PUBLIC_BACKEND_URL
     
     // Add more detailed validation and logging
     if (!file) {
@@ -88,7 +91,7 @@ export default function UploadForm() {
       }
       
       const response = await axios.post(
-        'http://localhost:3000/api/videos/upload',
+        `${backendUrl}/api/videos/upload`,
         {
           videoUrl
           // playerProfileId removed
@@ -126,6 +129,7 @@ export default function UploadForm() {
 
   // Process video for analysis and redirect to player analysis page
   const handleProcessAnalysis = async () => {
+    const backendUrl=process.env.NEXT_PUBLIC_BACKEND_URL
     try {
       if (!file) {
         toast.error("Missing file information");
@@ -142,7 +146,7 @@ export default function UploadForm() {
       
       // Call the API to process the video
       const response = await axios.post(
-        'http://localhost:3000/upload-performance-video',
+        `${backendUrl}/upload-performance-video`,
         formData,
         {
           headers: {

@@ -10,8 +10,8 @@
 
 [dev]
   command = "bun run dev"
-  port = 3000
-  targetPort = 3000
+  port = 3001
+  targetPort = 3001
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

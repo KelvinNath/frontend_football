@@ -40,8 +40,9 @@ export default function PlayerProfile() {
 
     // Check if profile already exists
     const checkPlayerProfile = async () => {
+      const backendUrl=process.env.NEXT_PUBLIC_BACKEND_URL
       try {
-        const response = await axios.get('http://localhost:3000/api/player/profile', {
+        const response = await axios.get(`${backendUrl}/api/player/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -62,6 +63,7 @@ export default function PlayerProfile() {
 
   const handleSubmitProfile = async () => {
     // Validate inputs
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
     if (!age || !position || !club || !nationality) {
       toast.error("Please fill in all fields");
       return;
@@ -79,7 +81,7 @@ export default function PlayerProfile() {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
-        'http://localhost:3000/api/player/profile', 
+        `${backendUrl}/api/player/profile`, 
         {
           age: ageNum,
           position,
