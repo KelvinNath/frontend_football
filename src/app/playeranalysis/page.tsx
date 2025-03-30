@@ -31,7 +31,7 @@ interface PlayerMetrics {
   createdAt: string;
 }
 
-export default function playeranalysis() {
+export default function PlayerAnalysis() {
   const [metrics, setMetrics] = useState<PlayerMetrics | null>(null);
   const [loading, setLoading] = useState(true);
 
